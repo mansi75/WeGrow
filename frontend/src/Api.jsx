@@ -1,17 +1,17 @@
 import axios from 'axios';
 
- // { token, user: { ... } }
+ 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || "http://localhost:8081/api",
   timeout: 8000,
 });
 
-// attach token to every request
+
 api.interceptors.request.use((config) => {
   const t = localStorage.getItem("authToken");
   if (t) {
     config.headers = config.headers || {};
-    config.headers.Authorization = `Bearer ${t}`; // MUST start with "Bearer "
+    config.headers.Authorization = `Bearer ${t}`; 
   }
   return config;
 });
@@ -27,7 +27,7 @@ export const getDashboard = async () => {
 
 export const login = async (username, password) => {
   const res = await api.post("/auth/login", { username, password });
-  return res.data; // { token, user }
+  return res.data; 
 };
 
 export const register = async ({ name, email, password }) => {
@@ -50,7 +50,7 @@ export const postMood = async (mood) => {
   const res = await api.post("/journal", fd, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-  return res.data; // { id, content, tags, imageUrl, createdAt }
+  return res.data; 
 }
 
 export const getProfile = async () => {
@@ -65,23 +65,23 @@ export const updateProfile = async (payload) => {
 
 export async function getMyJournalEntries(limit = 20) {
   const res = await api.get(`/journal/me?limit=${limit}`);
-  return res.data; // array of entries
+  return res.data; 
 }
 
 export const recordActivity = async (type) => {
-  // type must be one of: JOURNALING, MEDITATION, SLEEP, BREATHING
+  
   await api.post("/sessions/activity", { type });
 };
 
 
-// Community API
+
 
 export const getCommunityPosts = async (category = "ALL") => {
   const params =
     !category || category === "ALL" ? {} : { category: category.toUpperCase() };
 
   const res = await api.get("/community/posts", { params });
-  return res.data; // [{ id, alias, category, content, likes, comments, createdAt }]
+  return res.data; 
 };
 
 export const createCommunityPost = async ({ content, category }) => {
@@ -90,7 +90,7 @@ export const createCommunityPost = async ({ content, category }) => {
     category: category && category !== "ALL" ? category.toUpperCase() : "GENERAL",
   };
   const res = await api.post("/community/posts", body);
-  return res.data; // single CommunityPostDTO
+  return res.data; 
 };
 
 
