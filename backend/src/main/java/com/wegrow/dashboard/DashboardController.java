@@ -58,17 +58,14 @@ public class DashboardController {
         if (auth == null || auth.getName() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
         }
-        String email = auth.getName(); // JwtUtil sets subject = email
+        String email = auth.getName(); 
         Long userId = userRepo.findByEmail(email)
                 .map(u -> u.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         return svc.getDashboard(userId);
     }
 
-    /**
-     * (Optional) Keep the old endpoint for tooling/manual calls.
-     * You can remove this later.
-     */
+   
     @GetMapping("/dashboard")
     public DashboardDTO getDashboardById(@RequestParam Long userId) {
         return svc.getDashboard(userId);

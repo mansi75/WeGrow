@@ -1,25 +1,27 @@
 package com.wegrow.dashboard;
 
-import com.wegrow.dashboard.DashboardDTO;
-import com.wegrow.user.User;
-import com.wegrow.user.UserRepository;
-import com.wegrow.mood.MoodLogRepository;
-import com.wegrow.habit.HabitProgressRepository;
-import com.wegrow.reminder.ReminderRepository;
-import com.wegrow.session.SessionLogRepository;
-import com.wegrow.mood.MoodLog;
-import com.wegrow.habit.ActivityType;
-import com.wegrow.dashboard.DashboardDTO;
-import com.wegrow.habit.HabitProgress;
-import com.wegrow.reminder.Reminder;
-import com.wegrow.session.SessionLog;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.wegrow.habit.ActivityType;
+import com.wegrow.habit.HabitProgressRepository;
+import com.wegrow.mood.MoodLog;
+import com.wegrow.mood.MoodLogRepository;
+import com.wegrow.reminder.ReminderRepository;
+import com.wegrow.session.SessionLog;
+import com.wegrow.session.SessionLogRepository;
+import com.wegrow.user.User;
+import com.wegrow.user.UserRepository;
 
 @Service
 public class DashboardService {
@@ -49,11 +51,11 @@ public class DashboardService {
         DashboardDTO dto = new DashboardDTO();
         dto.user = new DashboardDTO.UserDTO(u.getId(), u.getName(), u.getEmail());
 
-        // ---------- Current mood (neutral 3 if none) ----------
+       
         dto.currentMood = moodRepo.findAllByUserIdOrderByLoggedAtDesc(userId)
                 .stream().findFirst().map(MoodLog::getMood).orElse(3);
 
-        // ---------- Weekly mood trend (empty list if none) ----------
+       
         LocalDate today = LocalDate.now();
         LocalDate weekStart = today.minusDays(6);
         List<MoodLog> logs = moodRepo.findAllByUserIdAndLoggedAtAfterOrderByLoggedAtAsc(
@@ -96,10 +98,15 @@ public class DashboardService {
         dto.progress = defaultProgressIfEmpty(dbProgress);
 
         // ---------- Quick stats: streak + sessions this week (zeros if none) ----------
-        dto.quickStats = new DashboardDTO.QuickStats(
-                computeStreak(userId),
-                computeSessionsThisWeek(userId)
-        );
+        int streak = computeStreak(userId);
+int sessionsThisWeek = computeSessionsThisWeek(userId);
+int achievements = computeAchievements(userId, streak, sessionsThisWeek);
+
+dto.quickStats = new DashboardDTO.QuickStats(
+        streak,
+        sessionsThisWeek,
+        achievements
+);
 
         return dto;
     }
@@ -138,4 +145,25 @@ public class DashboardService {
         }
         return streak;
     }
+
+    private int computeAchievements(Long userId, int streak, int sessionsThisWeek) {
+    // Total number of sessions ever done by this user
+    long totalSessions = sessionRepo.countByUserId(userId);
+
+    int achievements = 0;
+
+    // Streak-based achievements
+    if (streak >= 3)  achievements++;   // 3-day streak
+    if (streak >= 7)  achievements++;   // 7-day streak
+    if (streak >= 14) achievements++;   // 14-day streak
+
+    // Total sessions achievements
+    if (totalSessions >= 10)  achievements++;  // 10 sessions
+    if (totalSessions >= 25)  achievements++;  // 25 sessions
+    if (totalSessions >= 50)  achievements++;  // 50 sessions
+
+    // You can add more rules later if you like (journal-only, etc.)
+    return achievements;
+}
+
 }

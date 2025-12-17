@@ -1,26 +1,34 @@
 package com.wegrow.session;
 
 import com.wegrow.habit.ActivityType;
-import com.wegrow.session.SessionLog;
-import com.wegrow.user.User;
-import com.wegrow.session.SessionLogRepository;
-import com.wegrow.user.UserRepository;
+import com.wegrow.security.CurrentUser;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/sessions")
 public class SessionController {
-    private final SessionLogRepository repo;
-    private final UserRepository users;
-    public SessionController(SessionLogRepository r, UserRepository u){ repo=r; users=u; }
 
-    record CreateReq(Long userId, ActivityType type, LocalDateTime occurredAt){}
+    private final CurrentUser currentUser;
+    private final SessionActivityService activityService;
 
-    @PostMapping
-    public SessionLog create(@RequestBody CreateReq req){
-        User user = users.findById(req.userId()).orElseThrow();
-        return repo.save(new SessionLog(user, req.type(), req.occurredAt()));
+    public SessionController(CurrentUser currentUser,
+                             SessionActivityService activityService) {
+        this.currentUser = currentUser;
+        this.activityService = activityService;
+    }
+
+    // what frontend sends: { "type": "MEDITATION" } etc.
+    public record ActivityRequest(String type) {}
+
+    @PostMapping("/activity")
+    public ResponseEntity<?> logActivity(@RequestBody ActivityRequest req,
+                                         Authentication auth) {
+        Long userId = currentUser.id(auth);
+
+        ActivityType type = ActivityType.valueOf(req.type()); // must match enum name
+        activityService.recordActivity(userId, type);
+        return ResponseEntity.ok().build();
     }
 }

@@ -27,8 +27,15 @@ public class DashboardDTO {
     }
 
     public static class QuickStats {
-        public int streak; public int sessionsThisWeek;
-        public QuickStats(int streak, int sessionsThisWeek) { this.streak=streak; this.sessionsThisWeek=sessionsThisWeek; }
+        public int streak;
+        public int sessionsThisWeek;
+        public int achievements;     // NEW
+
+        public QuickStats(int streak, int sessionsThisWeek, int achievements) {
+            this.streak = streak;
+            this.sessionsThisWeek = sessionsThisWeek;
+            this.achievements = achievements;
+        }
     }
 
     public UserDTO user;

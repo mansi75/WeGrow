@@ -177,6 +177,12 @@
 import { Routes, Route, NavLink, useLocation } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import LogoutButton from "./components/LogoutButton";
+import Journal from "./pages/Journal.jsx";
+import Breathing from "./pages/Breathing.jsx";
+import Meditate from "./pages/Meditate.jsx";
+import Sleep from "./pages/Sleep.jsx";
+import Profile from "./pages/Profile.jsx";
+import Community from "./pages/Community.jsx";
 
 // pages you already have
 import Home from "./pages/Home";
@@ -197,6 +203,7 @@ const nav = [
   { to: "/journal", label: "Journal" },
   { to: "/meditate", label: "Meditate" },
   { to: "/breathing", label: "Breathing" },
+  { to: "/sleep", label: "Sleep" },
   { to: "/community", label: "Community" },
   { to: "/profile", label: "Profile" }
 ];
@@ -261,6 +268,57 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/journal"
+            element={
+              <PrivateRoute>
+                <Journal />
+              </PrivateRoute>
+          }
+        />
+          <Route
+            path="/breathing"
+            element={
+              <PrivateRoute>
+                <Breathing />
+              </PrivateRoute>
+      }
+        />
+          <Route
+            path="/meditate"
+            element={
+              <PrivateRoute>
+                  <Meditate />
+              </PrivateRoute>
+         }
+        />
+          <Route
+            path="/sleep"
+            element={
+              <PrivateRoute>
+                <Sleep />
+              </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+       }
+      />
+
+      <Route
+        path="/community"
+          element={
+            <PrivateRoute>
+              <Community />
+            </PrivateRoute>
+      }
+      />
+
           
         </Routes>
       </main>

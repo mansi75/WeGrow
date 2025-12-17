@@ -131,15 +131,20 @@ export default function Home() {
     setData((prev) => prev ? { ...prev, currentMood: val } : prev);
     try {
       const d = await getDashboard(); 
-      setData((prev) => prev ? {
-        ...prev,
-        currentMood: d.currentMood ?? prev.currentMood,
-        weeklyMood: d.weeklyMoodTrend ?? prev.weeklyMood,
-        quickStats: {
-          streak: d?.quickStats?.streak ?? prev.quickStats?.streak ?? 0,
-          sessionsThisWeek: d?.quickStats?.sessionsThisWeek ?? prev.quickStats?.sessionsThisWeek ?? 0
-        }
-      } : prev);
+      setData({
+      user: d.user ?? { name: 'User' },
+      currentMood: d.currentMood ?? 3,
+      weeklyMood: d.weeklyMoodTrend ?? [],
+      reminders: Array.isArray(d.reminders) ? d.reminders : [],
+      quickStats: {
+        streak: d?.quickStats?.streak ?? 0,
+        sessionsThisWeek: d?.quickStats?.sessionsThisWeek ?? 0,
+        achievements: d?.quickStats?.achievements ?? 0,   // NEW
+      },
+      progress: (Array.isArray(d.progress) && d.progress.length > 0)
+        ? d.progress
+        : ZERO_PROGRESS
+    });
     } catch {
       // silent fail: UI already shows updated mood; weekly trend will update on next load
     }

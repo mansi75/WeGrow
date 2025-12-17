@@ -40,7 +40,9 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()                      // login + register
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()          // preflight
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    
+                        .requestMatchers(HttpMethod.GET, "/files/**").permitAll()      
+                        .requestMatchers("/api/community/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
