@@ -42,7 +42,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()                      // login + register
+                        .requestMatchers("/api/auth/**").permitAll()    
+                        .requestMatchers("/", "/index.html").permitAll()
+                        .requestMatchers("/static/**", "/assets/**").permitAll()                  // login + register
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    
                         .requestMatchers(HttpMethod.GET, "/files/**").permitAll()  
                         .requestMatchers("/healthz").permitAll()        
