@@ -1,4 +1,4 @@
-// src/pages/Community.jsx
+
 import { useEffect, useState } from "react";
 import { getCommunityPosts, createCommunityPost } from "../api";
 
@@ -28,7 +28,7 @@ function timeAgo(isoString) {
   if (!isoString) return "";
   const then = new Date(isoString);
   const now = new Date();
-  const diff = (now.getTime() - then.getTime()) / 1000; // seconds
+  const diff = (now.getTime() - then.getTime()) / 1000; 
 
   if (diff < 60) return "Just now";
   const mins = Math.floor(diff / 60);
@@ -54,7 +54,7 @@ export default function Community() {
       setPosts(data);
     } catch (e) {
       console.error("Failed to load community posts", e);
-      // optional: setError("Could not load posts.");
+      
     } finally {
       setLoading(false);
     }
@@ -66,7 +66,7 @@ export default function Community() {
 
   useEffect(() => {
     load(filter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [filter]);
 
   async function handlePost() {
@@ -90,7 +90,7 @@ export default function Community() {
 
   return (
     <div className="max-w-5xl mx-auto pb-10">
-      {/* Header */}
+      
       <header className="mb-6">
         <h1 className="text-3xl font-semibold tracking-tight">Community</h1>
         <p className="text-slate-700 mt-1">
@@ -98,7 +98,7 @@ export default function Community() {
         </p>
       </header>
 
-      {/* Composer card */}
+      
       <section className="rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] ring-1 ring-black/5 p-5 md:p-7 mb-6">
         <div className="flex items-start gap-4">
           <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-white text-xl">
@@ -129,7 +129,7 @@ export default function Community() {
         </div>
       </section>
 
-      {/* Filters */}
+      
       <div className="flex flex-wrap gap-3 mb-6">
         {FILTERS.map((f) => {
           const active = filter === f.key;
@@ -152,7 +152,7 @@ export default function Community() {
         })}
       </div>
 
-      {/* Trending + stats */}
+      
       <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] mb-6">
         <div className="rounded-3xl bg-white/80 backdrop-blur ring-1 ring-black/5 p-5">
           <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 mb-3">
@@ -186,14 +186,14 @@ export default function Community() {
         </div>
       </div>
 
-      {/* Error banner */}
+      
       {error && (
         <div className="mb-4 rounded-full bg-rose-50 text-rose-700 border border-rose-200 px-4 py-2 text-sm text-center">
           {error}
         </div>
       )}
 
-      {/* Posts list */}
+      
       <section className="space-y-4">
         {loading && (
           <div className="text-slate-600 text-sm">Loading posts…</div>

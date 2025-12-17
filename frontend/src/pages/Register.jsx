@@ -1,4 +1,4 @@
-// src/pages/Register.jsx
+
 import { useState } from "react";
 import { register as apiRegister } from "../api";
 import { Link } from "react-router-dom";
@@ -22,8 +22,7 @@ export default function Register() {
       });
       localStorage.setItem("authToken", token);
       localStorage.setItem("authUser", JSON.stringify(user));
-      window.location.href = "/"; // go to Home after signup
-    } catch (e) {
+      window.location.href = "/"; 
       const msg = e?.response?.data?.error || "Could not create account";
       setError(msg);
     } finally {
@@ -35,11 +34,11 @@ export default function Register() {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
      <div className="fixed inset-0 -z-10 bg-[linear-gradient(135deg,#fff7cc_0%,#fde047_35%,#f59e0b_70%,#f97316_100%)]" />
 
-      {/* Card */}
+      
       <div className="relative w-full max-w-md">
         <div className="mx-auto rounded-3xl bg-white/80 backdrop-blur-xl shadow-2xl ring-1 ring-black/5 p-8">
           <div className="text-center">
-            {/* WeGrow text in same orange gradient as the button */}
+            
             <div className="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-orange-500 to-orange-600">
               WeGrow
             </div>

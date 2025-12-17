@@ -7,8 +7,7 @@ const TABS = [
   { key: "music", label: "Music" },
 ];
 
-// Each track now has an `audio` field
-// Place matching files in: public/audio/...
+
 const TRACKS = {
   stories: [
     {
@@ -95,11 +94,11 @@ export default function Sleep() {
     return () => audio.removeEventListener("ended", handleEnded);
   }, []);
 
-  // Click on a track: play / pause / switch
+  
   async function handleSelectTrack(track) {
     if (!audioRef.current) return;
 
-    // If clicking the same track and it is playing -> pause
+   
     if (currentTrack && currentTrack.id === track.id && isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -109,7 +108,7 @@ export default function Sleep() {
     const isNewTrack = !currentTrack || currentTrack.id !== track.id;
 
     try {
-      // If switching or resuming: set src and play
+      
       if (isNewTrack) {
         audioRef.current.src = track.audio;
         audioRef.current.currentTime = 0;
@@ -119,10 +118,10 @@ export default function Sleep() {
       setCurrentTrack(track);
       setIsPlaying(true);
 
-      // ✅ 2) Only count when user starts a *new* sleep track
+      
       if (isNewTrack) {
         try {
-          await recordActivity("SLEEP"); // must match ActivityType.SLEEP
+          await recordActivity("SLEEP"); 
         } catch (e) {
           console.warn("Could not record sleep activity", e);
         }
@@ -158,21 +157,21 @@ export default function Sleep() {
 
   return (
     <div className="relative max-w-4xl mx-auto">
-      {/* Hidden audio element */}
+      
       <audio ref={audioRef} />
 
-      {/* Purple/blue background inside the main area */}
+      
       <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 opacity-95 blur-[1px]" />
 
       <div className="relative rounded-3xl bg-gradient-to-br from-indigo-900/90 via-purple-900/90 to-blue-900/90 text-white shadow-2xl ring-1 ring-white/10 p-6 md:p-8 space-y-6">
-        {/* Title */}
+        
         <div className="text-center space-y-1">
           <div className="text-sm uppercase tracking-[0.2em] text-violet-200">
             Sleep &amp; Relaxation
           </div>
         </div>
 
-        {/* Top stats cards */}
+        
         <div className="grid md:grid-cols-2 gap-4">
           <div className="rounded-2xl bg-white/5 border border-white/10 px-5 py-4 flex flex-col gap-1">
             <div className="text-xs text-violet-200 flex items-center gap-2">
@@ -190,9 +189,9 @@ export default function Sleep() {
           </div>
         </div>
 
-        {/* Main panel */}
+        
         <div className="rounded-3xl bg-white/5 border border-white/10 px-4 py-5 md:px-6 md:py-6 space-y-5">
-          {/* Tabs */}
+          
           <div className="flex justify-center">
             <div className="inline-flex bg-white/5 rounded-full p-1 gap-1">
               {TABS.map((t) => {
@@ -216,7 +215,7 @@ export default function Sleep() {
             </div>
           </div>
 
-          {/* Track list */}
+          
           <div className="space-y-3">
             {currentTracks.map((track) => {
               const isSelected = currentTrack?.id === track.id && isPlaying;
@@ -251,7 +250,7 @@ export default function Sleep() {
             })}
           </div>
 
-          {/* Bottom hint / now playing */}
+          
           <div className="pt-6 text-center text-xs md:text-sm text-violet-200 space-y-3">
             <div className="text-3xl">☁️</div>
             <div>

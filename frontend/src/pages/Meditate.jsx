@@ -104,11 +104,11 @@ export default function Meditate() {
     return () => audio.removeEventListener("ended", handleEnded);
   }, []);
 
-  // ✅ 2) call recordActivity inside playSession
+  
   async function playSession(session) {
     if (!audioRef.current) return;
 
-    // clicking the same card toggles pause/play
+    
     if (currentId === session.id && isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -122,9 +122,9 @@ export default function Meditate() {
       setCurrentId(session.id);
       setIsPlaying(true);
 
-      // 👉 tell backend the user did a meditation session
+      
       try {
-        await recordActivity("MEDITATION"); // must match ActivityType.MEDITATION
+        await recordActivity("MEDITATION"); 
       } catch (e) {
         console.warn("Could not record meditation activity", e);
       }
@@ -148,10 +148,10 @@ export default function Meditate() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      {/* hidden audio element */}
+      
       <audio ref={audioRef} />
 
-      {/* Header */}
+      
       <header className="space-y-1">
         <h1 className="text-2xl md:text-3xl font-semibold flex items-center gap-2">
           <span>🧘‍♀️</span>
@@ -162,7 +162,7 @@ export default function Meditate() {
         </p>
       </header>
 
-      {/* Filter chips */}
+      
       <div className="flex flex-wrap gap-3">
         {FILTERS.map((f) => {
           const isActive = activeFilter === f.key;
@@ -185,7 +185,7 @@ export default function Meditate() {
         })}
       </div>
 
-      {/* Meditation cards */}
+      
       <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {filteredSessions.map((s) => (
           <MeditationCard
@@ -197,7 +197,7 @@ export default function Meditate() {
         ))}
       </section>
 
-      {/* Now playing bar */}
+      
       {currentSession && (
         <div className="rounded-2xl bg-white/80 shadow-lg ring-1 ring-black/5 p-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
@@ -223,7 +223,7 @@ export default function Meditate() {
         </div>
       )}
 
-      {/* Tips card */}
+      
       <section className="rounded-3xl bg-gradient-to-r from-purple-400/80 via-pink-400/80 to-orange-300/80 text-white shadow-xl ring-1 ring-black/5 p-6 md:p-8">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
@@ -254,7 +254,7 @@ function MeditationCard({ session, isActive, onSelect }) {
         (isActive ? "ring-orange-400 scale-[1.02]" : "hover:translate-y-0.5")
       }
     >
-      {/* Top gradient strip */}
+      
       <div
         className={`relative h-24 bg-gradient-to-r ${topGradient} flex items-center justify-between px-4`}
       >
@@ -266,7 +266,7 @@ function MeditationCard({ session, isActive, onSelect }) {
         </div>
       </div>
 
-      {/* Content */}
+      
       <div className="flex-1 flex flex-col px-5 py-4 space-y-3">
         <div>
           <h2 className="font-semibold text-slate-900">{title}</h2>

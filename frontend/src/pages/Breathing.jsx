@@ -44,7 +44,7 @@ export default function Breathing() {
 
   useEffect(() => {
     setTimeLeft(currentPhase.seconds);
-  }, [mode, phaseIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mode, phaseIndex]); 
 
   useEffect(() => {
     if (!isRunning) return;
@@ -65,16 +65,15 @@ export default function Breathing() {
     }, 1000);
 
     return () => clearInterval(id);
-  }, [isRunning, phases.length]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // ✅ 2) make this async and record BREATHING activity
+  }, [isRunning, phases.length]); 
+  
   async function handleStart() {
     setCycleCount(0);
     setPhaseIndex(0);
     setTimeLeft(phases[0].seconds);
     setIsRunning(true);
     try {
-      // must match ActivityType.BREATHING in the backend
+      
       await recordActivity("BREATHING");
     } catch (e) {
       console.warn("Could not record breathing activity", e);
@@ -98,9 +97,9 @@ export default function Breathing() {
 
   return (
     <div className="max-w-5xl mx-auto space-y-8">
-      {/* Top breathing card */}
+      
       <section className="rounded-3xl bg-white/70 backdrop-blur-xl shadow-xl ring-1 ring-black/5 overflow-hidden">
-        {/* Header bar with gradient */}
+        
         <div className="px-6 py-4 bg-gradient-to-r from-orange-400/90 via-orange-300/80 to-yellow-300/80 text-slate-900 flex items-center gap-3">
           <span className="text-2xl">🌬️</span>
           <div>
@@ -112,7 +111,7 @@ export default function Breathing() {
         </div>
 
         <div className="p-6 md:p-8 grid md:grid-cols-3 gap-6 items-center">
-          {/* Left: title + description */}
+          
           <div className="md:col-span-1 space-y-2 text-center md:text-left">
             <div className="text-2xl flex items-center justify-center md:justify-start gap-2">
               <span>☁️</span>
@@ -123,7 +122,7 @@ export default function Breathing() {
             </p>
           </div>
 
-          {/* Middle: timer circle */}
+          
           <div className="md:col-span-1 flex flex-col items-center justify-center">
             <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-tr from-orange-400 via-pink-400 to-red-400 shadow-2xl flex items-center justify-center text-white">
               <div className="text-center">
@@ -137,7 +136,7 @@ export default function Breathing() {
             </div>
           </div>
 
-          {/* Right: instructions + controls */}
+          
           <div className="md:col-span-1 flex flex-col items-center md:items-start gap-3">
             <p className="text-slate-700 text-sm md:text-base text-center md:text-left">
               {currentPhase.cue}
@@ -164,9 +163,9 @@ export default function Breathing() {
         </div>
       </section>
 
-      {/* Mode cards + Panic help */}
+      
       <section className="space-y-6">
-        {/* Mode choice cards */}
+        
         <div className="grid md:grid-cols-3 gap-4">
           <ModeCard
             icon="🌙"
@@ -191,7 +190,7 @@ export default function Breathing() {
           />
         </div>
 
-        {/* Panic attack help section */}
+        
         <div className="rounded-3xl bg-orange-50/70 ring-1 ring-orange-100 p-6 md:p-8 space-y-5">
           <div className="flex items-center gap-2 text-lg font-semibold text-rose-600">
             <span>❤️</span>
