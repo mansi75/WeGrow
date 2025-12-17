@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { loginApi } from '../Api';
+import { loginApi } from '../api';
 
 const AuthContext = createContext(null);
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     setToken(null); setUser(null);
   }
 
-  // (optional) token expiry handling could be added here
+  
 
   return (
     <AuthContext.Provider value={{ token, user, isAuthenticated, login, logout, loading }}>
