@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()    
                         .requestMatchers("/", "/index.html").permitAll()
-                        .requestMatchers("/static/**", "/assets/**").permitAll()                  // login + register
+                        .requestMatchers("/static/**", "/assets/**", "/audio/**").permitAll()                  // login + register
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    
                         .requestMatchers(HttpMethod.GET, "/files/**").permitAll()  
                         .requestMatchers("/healthz").permitAll()        
