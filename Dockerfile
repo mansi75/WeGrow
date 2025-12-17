@@ -52,7 +52,8 @@ COPY --from=backend-build /app/target/*.jar app.jar
 # 2. Copy built frontend files into /app/static
 COPY --from=frontend-build /frontend/dist /app/static/
 
-EXPOSE 8080
+EXPOSE 10000
+
 ENV JAVA_OPTS=""
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
