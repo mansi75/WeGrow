@@ -1,28 +1,3 @@
-// package com.wegrow.web;
-
-// import com.wegrow.model.Reminder;
-// import com.wegrow.model.User;
-// import com.wegrow.repo.ReminderRepository;
-// import com.wegrow.repo.UserRepository;
-// import org.springframework.web.bind.annotation.*;
-
-// import java.time.LocalDateTime;
-
-// @RestController
-// @RequestMapping("/api/reminders")
-// public class ReminderController {
-//     private final ReminderRepository repo;
-//     private final UserRepository users;
-//     public ReminderController(ReminderRepository r, UserRepository u){ repo=r; users=u; }
-
-//     record CreateReq(Long userId, String text, LocalDateTime dueAt) {}
-
-//     @PostMapping
-//     public Reminder create(@RequestBody CreateReq req){
-//         User user = users.findById(req.userId()).orElseThrow();
-//         return repo.save(new Reminder(user, req.text(), req.dueAt(), false));
-//     }
-// }
 
 package com.wegrow.reminder;
 

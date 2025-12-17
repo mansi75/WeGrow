@@ -1,31 +1,4 @@
-// package com.wegrow.web;
 
-// import com.wegrow.dto.DashboardDTO;
-// import com.wegrow.model.User;
-// import com.wegrow.repo.UserRepository;
-// import com.wegrow.service.DashboardService;
-// import org.springframework.web.bind.annotation.*;
-
-// import java.security.Principal;
-
-// @RestController
-// @RequestMapping("/api")
-// public class DashboardController {
-//     private final DashboardService service;
-//     private final UserRepository userRepo;
-
-//     public DashboardController(DashboardService service, UserRepository userRepo) {
-//         this.service = service;
-//         this.userRepo = userRepo;
-//     }
-
-//     // New: uses auth principal's email
-//     @GetMapping("/dashboard/me")
-//     public DashboardDTO me(Principal principal) {
-//         User u = userRepo.findByEmail(principal.getName()).orElseThrow();
-//         return service.getDashboard(u.getId());
-//     }
-// }
 
 package com.wegrow.dashboard;
 
@@ -49,10 +22,7 @@ public class DashboardController {
         this.userRepo = userRepo;
     }
 
-    /**
-     * New, recommended endpoint:
-     * Uses JWT subject (email) to resolve the logged-in user.
-     */
+    
     @GetMapping("/dashboard/me")
     public DashboardDTO getMyDashboard(Authentication auth) {
         if (auth == null || auth.getName() == null) {

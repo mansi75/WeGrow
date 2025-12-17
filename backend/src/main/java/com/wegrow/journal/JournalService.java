@@ -21,7 +21,7 @@ import java.util.UUID;
 public class JournalService {
 
   private final JournalEntryRepository repo;
-  private final CurrentUser currentUser;      // <-- use your helper
+  private final CurrentUser currentUser;      
   private final ObjectMapper om = new ObjectMapper();
 
   public JournalService(JournalEntryRepository repo, CurrentUser currentUser) {
@@ -32,7 +32,7 @@ public class JournalService {
   public JournalDTO create(Authentication auth, String content, List<String> tags, MultipartFile image)
       throws IOException {
 
-    Long uid = currentUser.id(auth);          // <-- resolve user id
+    Long uid = currentUser.id(auth);          
 
     String fileUrl = null;
     if (image != null && !image.isEmpty()) {
@@ -56,7 +56,7 @@ e.setFileUrl(fileUrl);
   }
 
   public List<JournalDTO> myRecent(Authentication auth, int limit) {
-    Long uid = currentUser.id(auth);          // <-- resolve user id
+    Long uid = currentUser.id(auth);          
     return repo.findTop50ByUserIdOrderByCreatedAtDesc(uid).stream()
         .limit(Math.max(1, Math.min(limit, 50)))
         .map(this::toDto)
@@ -76,7 +76,7 @@ e.setFileUrl(fileUrl);
     e.getId(),
     e.getContent(),
     tags,
-    e.getFileUrl(),        // <— here
+    e.getFileUrl(),        
     e.getCreatedAt()
   );
 }

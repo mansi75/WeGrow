@@ -7,7 +7,7 @@ public class JournalDTO {
   public Long id;
   public String content;
   public List<String> tags;
-  public String fileUrl;      // <— renamed
+  public String fileUrl;      
   public Instant createdAt;
 
   public JournalDTO(Long id, String content, List<String> tags, String fileUrl, Instant createdAt) {

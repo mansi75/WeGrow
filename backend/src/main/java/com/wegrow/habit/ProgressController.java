@@ -1,27 +1,4 @@
-// package com.wegrow.web;
 
-// import com.wegrow.model.ActivityType;
-// import com.wegrow.model.HabitProgress;
-// import com.wegrow.model.User;
-// import com.wegrow.repository.HabitProgressRepository;
-// import com.wegrow.repository.UserRepository;
-// import org.springframework.web.bind.annotation.*;
-
-// @RestController
-// @RequestMapping("/api/progress")
-// public class ProgressController {
-//     private final HabitProgressRepository repo;
-//     private final UserRepository users;
-//     public ProgressController(HabitProgressRepository r, UserRepository u){ repo=r; users=u; }
-
-//     record CreateReq(Long userId, ActivityType type, int percent){}
-
-//     @PostMapping
-//     public HabitProgress create(@RequestBody CreateReq req){
-//         User user = users.findById(req.userId()).orElseThrow();
-//         return repo.save(new HabitProgress(user, req.type(), req.percent()));
-//     }
-// }
 package com.wegrow.habit;
 
 import com.wegrow.habit.ActivityType;

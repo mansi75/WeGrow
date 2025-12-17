@@ -63,7 +63,7 @@ public class DashboardService {
         );
 
         if (logs.isEmpty()) {
-            dto.weeklyMoodTrend = List.of();  // let frontend show empty state
+            dto.weeklyMoodTrend = List.of();  
         } else {
             Map<LocalDate, Double> avgByDay = logs.stream()
                     .collect(Collectors.groupingBy(m -> m.getLoggedAt().toLocalDate(),
@@ -72,19 +72,18 @@ public class DashboardService {
             List<DashboardDTO.TrendPoint> trend = new ArrayList<>();
             for (int i = 0; i < 7; i++) {
                 LocalDate d = weekStart.plusDays(i);
-                Double avg = avgByDay.get(d);              // could be null (no logs that day)
+                Double avg = avgByDay.get(d);              
                 if (avg != null) {
-                    int val = (int) Math.round(avg);       // 1..5
+                    int val = (int) Math.round(avg);      
                     trend.add(new DashboardDTO.TrendPoint(d.getDayOfWeek().name().substring(0, 3), val));
                 } else {
-                    // If you prefer to always show 7 points, uncomment:
-                    // trend.add(new DashboardDTO.TrendPoint(d.getDayOfWeek().name().substring(0, 3), 3));
+                    
                 }
             }
             dto.weeklyMoodTrend = trend;
         }
 
-        // ---------- Reminders (empty list is fine) ----------
+        
         dto.reminders = reminderRepo.findAllByUserIdOrderByDueAtAsc(userId).stream()
                 .limit(5)
                 .map(r -> new DashboardDTO.ReminderItem(r.getId(), r.getText(), r.getDueAt(), r.isCompleted()))
@@ -97,7 +96,7 @@ public class DashboardService {
 
         dto.progress = defaultProgressIfEmpty(dbProgress);
 
-        // ---------- Quick stats: streak + sessions this week (zeros if none) ----------
+        
         int streak = computeStreak(userId);
 int sessionsThisWeek = computeSessionsThisWeek(userId);
 int achievements = computeAchievements(userId, streak, sessionsThisWeek);
@@ -114,7 +113,7 @@ dto.quickStats = new DashboardDTO.QuickStats(
     private List<DashboardDTO.ProgressItem> defaultProgressIfEmpty(List<DashboardDTO.ProgressItem> db) {
         if (db != null && !db.isEmpty()) return db;
 
-        // Guarantee the 4 tiles exist at 0%
+       
         List<DashboardDTO.ProgressItem> zeros = new ArrayList<>();
         for (ActivityType t : EnumSet.of(ActivityType.JOURNALING, ActivityType.MEDITATION, ActivityType.SLEEP, ActivityType.BREATHING)) {
             zeros.add(new DashboardDTO.ProgressItem(t.name(), 0));
@@ -147,22 +146,22 @@ dto.quickStats = new DashboardDTO.QuickStats(
     }
 
     private int computeAchievements(Long userId, int streak, int sessionsThisWeek) {
-    // Total number of sessions ever done by this user
+   
     long totalSessions = sessionRepo.countByUserId(userId);
 
     int achievements = 0;
 
-    // Streak-based achievements
-    if (streak >= 3)  achievements++;   // 3-day streak
-    if (streak >= 7)  achievements++;   // 7-day streak
-    if (streak >= 14) achievements++;   // 14-day streak
+    
+    if (streak >= 3)  achievements++;   
+    if (streak >= 7)  achievements++;   
+    if (streak >= 14) achievements++;   
 
-    // Total sessions achievements
-    if (totalSessions >= 10)  achievements++;  // 10 sessions
-    if (totalSessions >= 25)  achievements++;  // 25 sessions
-    if (totalSessions >= 50)  achievements++;  // 50 sessions
+    
+    if (totalSessions >= 10)  achievements++;  
+    if (totalSessions >= 25)  achievements++;  
+    if (totalSessions >= 50)  achievements++;  
 
-    // You can add more rules later if you like (journal-only, etc.)
+   
     return achievements;
 }
 

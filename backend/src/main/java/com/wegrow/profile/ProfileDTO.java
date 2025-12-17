@@ -9,23 +9,23 @@ public class ProfileDTO {
     public String email;
     public String tagline;
 
-    // stats
+    
     public int streakDays;
     public int totalSessions;
-    public int achievements; // for now: derived or stub
+    public int achievements; 
 
-    // personal info
+    
     public String phone;
     public String location;
     public LocalDate memberSince;
 
-    // wellness goals
+    
     public int dailyMeditationMinutes;
     public String journalingFrequency;
     public int sleepHoursGoal;
     public String breathingPerWeek;
 
-    // settings
+    
     public boolean notificationsEnabled;
     public boolean emailUpdatesEnabled;
     public boolean privacyMode;

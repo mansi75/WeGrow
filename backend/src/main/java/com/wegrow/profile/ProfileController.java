@@ -23,7 +23,7 @@ public class ProfileController {
 
     @GetMapping("/me")
     public ProfileDTO me(Authentication authentication) {
-        Long userId = currentUser.id(authentication);   // <-- use your helper here
+        Long userId = currentUser.id(authentication);   
         return profileService.getProfileForUser(userId);
     }
 
@@ -32,7 +32,7 @@ public class ProfileController {
             Authentication authentication,
             @RequestBody ProfileDTO body
     ) {
-        Long userId = currentUser.id(authentication);   // <-- and here
+        Long userId = currentUser.id(authentication);   
         return profileService.updateProfile(userId, body);
     }
 }

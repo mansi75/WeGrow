@@ -10,6 +10,7 @@ com/wegrow/dashboard/DashboardService.class
 com/wegrow/dashboard/DashboardDTO$ProgressItem.class
 com/wegrow/session/SessionLog.class
 com/wegrow/habit/HabitProgressRepository.class
+com/wegrow/web/HealthController.class
 com/wegrow/dashboard/DashboardDTO$QuickStats.class
 com/wegrow/dashboard/DashboardDTO.class
 com/wegrow/user/Role.class

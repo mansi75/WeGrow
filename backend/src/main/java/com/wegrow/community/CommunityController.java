@@ -23,10 +23,8 @@ public class CommunityController {
         this.currentUser = currentUser;
     }
 
-    // ---------- DTO for incoming POST body ----------
     public record CreatePostRequest(String content, String category) { }
 
-    // ---------- GET /api/community/posts?category=... ----------
     @GetMapping("/posts")
     public List<CommunityPostDTO> list(@RequestParam(required = false) String category) {
         List<CommunityPost> posts;
@@ -38,7 +36,7 @@ public class CommunityController {
         return posts.stream().map(CommunityPostDTO::of).toList();
     }
 
-    // ---------- POST /api/community/posts ----------
+   
     @PostMapping("/posts")
     public CommunityPostDTO create(@RequestBody CreatePostRequest body, Authentication auth) {
         Long userId = currentUser.id(auth); // ensures user exists
@@ -53,7 +51,7 @@ public class CommunityController {
 
         CommunityPost p = new CommunityPost();
         p.setUserId(userId);
-        p.setAlias(generateAlias());     // Anonymous Butterfly, etc.
+        p.setAlias(generateAlias());     
         p.setCategory(cat);
         p.setContent(body.content().trim());
         p.setLikesCount(0);

@@ -15,7 +15,7 @@ public class CurrentUser {
         if (auth == null || auth.getName() == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
         }
-        String email = auth.getName(); // JwtUtil sets subject to email
+        String email = auth.getName(); 
         return users.findByEmail(email)
                 .map(u -> u.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));

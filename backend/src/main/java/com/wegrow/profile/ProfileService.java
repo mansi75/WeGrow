@@ -34,25 +34,25 @@ public class ProfileService {
         dto.id = u.getId();
         dto.name = u.getName();
         dto.email = u.getEmail();
-        dto.tagline = "Wellness Enthusiast"; // you can store this on User later
+        dto.tagline = "Wellness Enthusiast"; 
 
-        // stats
+        
         dto.streakDays = computeStreak(userId);
         dto.totalSessions = (int) sessionRepo.countByUserId(userId);
-        dto.achievements = 12; // stub for now; later compute from badges table
+        dto.achievements = 12; // 
 
-        // personal info
+        
         dto.phone = u.getPhone();
         dto.location = u.getLocation();
         dto.memberSince = u.getMemberSince();
 
-        // wellness goals (with sensible defaults)
+        
         dto.dailyMeditationMinutes = u.getDailyMeditationMinutes() != null ? u.getDailyMeditationMinutes() : 15;
         dto.journalingFrequency = u.getJournalingFrequency() != null ? u.getJournalingFrequency() : "Daily";
         dto.sleepHoursGoal = u.getSleepHoursGoal() != null ? u.getSleepHoursGoal() : 8;
         dto.breathingPerWeek = u.getBreathingPerWeek() != null ? u.getBreathingPerWeek() : "3x/week";
 
-        // settings
+        
         dto.notificationsEnabled = u.isNotificationsEnabled();
         dto.emailUpdatesEnabled = u.isEmailUpdatesEnabled();
         dto.privacyMode = u.isPrivacyMode();
@@ -64,12 +64,12 @@ public class ProfileService {
     User u = userRepo.findById(userId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-    // ----- basic info -----
+    
     if (req.name != null && !req.name.isBlank()) {
         u.setName(req.name.trim());
     }
 
-    // email can change – ensure not blank and unique
+    
     if (req.email != null && !req.email.isBlank()) {
         String newEmail = req.email.trim().toLowerCase();
         if (!newEmail.equalsIgnoreCase(u.getEmail())) {
@@ -83,7 +83,7 @@ public class ProfileService {
         }
     }
 
-    // phone & location (optional)
+    
     u.setPhone(req.phone != null ? req.phone.trim() : null);
     u.setLocation(req.location != null ? req.location.trim() : null);
 
@@ -91,13 +91,13 @@ public class ProfileService {
         u.setMemberSince(LocalDate.now());
     }
 
-    // ----- wellness goals -----
+    
     u.setDailyMeditationMinutes(req.dailyMeditationMinutes);
     u.setJournalingFrequency(req.journalingFrequency);
     u.setSleepHoursGoal(req.sleepHoursGoal);
     u.setBreathingPerWeek(req.breathingPerWeek);
 
-    // ----- settings -----
+    
     u.setNotificationsEnabled(req.notificationsEnabled);
     u.setEmailUpdatesEnabled(req.emailUpdatesEnabled);
     u.setPrivacyMode(req.privacyMode);

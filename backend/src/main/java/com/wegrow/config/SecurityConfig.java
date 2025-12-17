@@ -1,6 +1,7 @@
 package com.wegrow.config;
 
-import com.wegrow.security.JwtAuthenticationFilter;
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import com.wegrow.security.JwtAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -32,6 +33,8 @@ public class SecurityConfig {
         this.uds = uds;
     }
 
+    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -41,7 +44,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()                      // login + register
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()    
-                        .requestMatchers(HttpMethod.GET, "/files/**").permitAll()      
+                        .requestMatchers(HttpMethod.GET, "/files/**").permitAll()  
+                        .requestMatchers("/healthz").permitAll()        
                         .requestMatchers("/api/community/**").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -53,14 +57,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration c = new CorsConfiguration();
 
-        // List every dev origin you use (5173, 5174, 3000, etc.)
+        
         c.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",
                 "http://localhost:3000"
         ));
 
-        // If you need cookies/Authorization headers from browser, keep this true.
+       
         c.setAllowCredentials(true);
 
         c.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

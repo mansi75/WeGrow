@@ -29,7 +29,7 @@ public class DashboardDTO {
     public static class QuickStats {
         public int streak;
         public int sessionsThisWeek;
-        public int achievements;     // NEW
+        public int achievements;     
 
         public QuickStats(int streak, int sessionsThisWeek, int achievements) {
             this.streak = streak;

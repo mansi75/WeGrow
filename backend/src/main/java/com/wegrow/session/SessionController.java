@@ -19,7 +19,7 @@ public class SessionController {
         this.activityService = activityService;
     }
 
-    // what frontend sends: { "type": "MEDITATION" } etc.
+    
     public record ActivityRequest(String type) {}
 
     @PostMapping("/activity")
@@ -27,7 +27,7 @@ public class SessionController {
                                          Authentication auth) {
         Long userId = currentUser.id(auth);
 
-        ActivityType type = ActivityType.valueOf(req.type()); // must match enum name
+        ActivityType type = ActivityType.valueOf(req.type()); 
         activityService.recordActivity(userId, type);
         return ResponseEntity.ok().build();
     }

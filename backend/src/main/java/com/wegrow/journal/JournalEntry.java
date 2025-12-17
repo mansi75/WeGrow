@@ -16,16 +16,16 @@ public class JournalEntry {
   @Column(nullable = false)
   private String content;
 
-  // store tags as JSON text; you can normalize later
+  
   @Column(columnDefinition = "text")
-  private String tagsJson; // e.g., ["happy","calm"]
+  private String tagsJson; 
 
-  private String fileUrl; // served via /files/**
+  private String fileUrl; 
 
   @Column(nullable = false, updatable = false)
   private Instant createdAt = Instant.now();
 
-  // getters/setters
+  
   public Long getId() { return id; }
   public Long getUserId() { return userId; }
   public void setUserId(Long userId) { this.userId = userId; }

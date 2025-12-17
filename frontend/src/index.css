@@ -1,15 +1,4 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
-  html, body, #root { height: 100%; }
-  body { @apply font-inter text-slate-900 bg-gradient-to-b from-indigo-50 to-blue-50; margin: 0; }
-}
-@layer components {
-  .card { @apply bg-white rounded-2xl shadow-card p-5; }
-  .btn  { @apply inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2 font-semibold text-white hover:opacity-95 disabled:opacity-70; }
-} */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,7 +6,7 @@
 @layer base {
   html, body, #root { height: 100%; }
 
-  /* hard override any default white/gradients */
+  
   html, body, #root {
     background: transparent !important;
   }

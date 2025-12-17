@@ -15,11 +15,10 @@ public class CommunityPost {
     private Long userId;
 
     @Column(nullable = false, length = 100)
-    private String alias;          // “Anonymous Butterfly”
+    private String alias;         
 
     @Column(nullable = false, length = 30)
-    private String category;       // MEDITATION / JOURNALING / BREATHING / SLEEP / GENERAL
-
+    private String category;       
     @Column(nullable = false, columnDefinition = "text")
     private String content;
 

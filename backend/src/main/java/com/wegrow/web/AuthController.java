@@ -34,7 +34,7 @@ public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
         return ResponseEntity.badRequest().body(Map.of("error", "All fields are required"));
     }
 
-    // basic length check, you can enforce stronger policy
+    
     if (password.length() < 6) {
         return ResponseEntity.badRequest().body(Map.of("error", "Password must be at least 6 characters"));
     }
@@ -46,11 +46,11 @@ public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
     var u = new User();
     u.setName(name);
     u.setEmail(email);
-    u.setPasswordHash(encoder.encode(password)); // BCrypt
+    u.setPasswordHash(encoder.encode(password)); 
 
     var saved = users.save(u);
 
-    // Option: auto-login right after signup
+    
     String token = jwt.generate(saved.getEmail());
     return ResponseEntity.ok(Map.of(
             "token", token,
