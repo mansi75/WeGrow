@@ -82,10 +82,18 @@ Make sure you have the following installed:
 
 3. Configure the database in application.properties:
    
-```bash
-\spring.datasource.url=jdbc:postgresql:\//localhost:5432/your_db_name
-\spring.datasource.username=your_username
-\spring.datasource.password=your_pass
+cat <<EOF > src/main/resources/application.properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+server.port=8080
+EOF
+
 
 
 4. Run the Spring Boot application:
