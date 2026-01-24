@@ -74,3 +74,14 @@ Make sure you have the following installed:
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/your-repo-name.git
+
+2. Navigate to the backend directory:
+cd backend
+
+3. Configure the database in application.properties:
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
+spring.datasource.username=your_username
+spring.datasource.password=your_pass
+
+4. Run the Spring Boot application:
+mvn spring-boot:run
