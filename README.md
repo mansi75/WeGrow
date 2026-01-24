@@ -81,7 +81,8 @@ Make sure you have the following installed:
 
 
 3. Configure the database in application.properties:
-   
+
+ ```bash
 cat <<EOF > src/main/resources/application.properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
 spring.datasource.username=your_username
