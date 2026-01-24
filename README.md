@@ -87,7 +87,7 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
 spring.datasource.username=your_username
 spring.datasource.password=your_pass
 
-
+```bash
 4. Run the Spring Boot application:
 
 ```bash
