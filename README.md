@@ -87,6 +87,8 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
 spring.datasource.username=your_username
 spring.datasource.password=your_pass
 
-6. Run the Spring Boot application:
+
+5. Run the Spring Boot application:
+
 ```bash
 mvn spring-boot:run
