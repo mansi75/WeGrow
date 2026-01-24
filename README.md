@@ -80,7 +80,7 @@ Make sure you have the following installed:
    cd backend
 
 
-4. Configure the database in application.properties:
+3. Configure the database in application.properties:
    
 ```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/your_db_name
@@ -88,7 +88,7 @@ spring.datasource.username=your_username
 spring.datasource.password=your_pass
 
 
-5. Run the Spring Boot application:
+4. Run the Spring Boot application:
 
 ```bash
 mvn spring-boot:run
