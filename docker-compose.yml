@@ -17,20 +17,36 @@ services:
       timeout: 3s
       retries: 10
 
-  backend:
-    build: ./backend          # path where your Spring Boot Dockerfile is
-    container_name: wegrow-backend
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/wegrow
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
-      SERVER_PORT: 8081
-    ports:
-      - "8081:8081"
-    # if you also build frontend in this image, just keep your existing Dockerfile
+    backend:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: wegrow-backend
+      depends_on:
+        db:
+          condition: service_healthy
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/wegrow
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+        SERVER_PORT: 8081
+      ports:
+        - "8081:8081"
+
+  # backend:
+  #   build: ./backend          # path where your Spring Boot Dockerfile is
+  #   container_name: wegrow-backend
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/wegrow
+  #     SPRING_DATASOURCE_USERNAME: postgres
+  #     SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+  #     SERVER_PORT: 8081
+  #   ports:
+  #     - "8081:8081"
+  #   # if you also build frontend in this image, just keep your existing Dockerfile
 
 volumes:
   pgdata_wegrow:
